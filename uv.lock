@@ -1606,15 +1606,11 @@ opensearch2 = [
 [[package]]
 name = "invenio-assets"
 version = "4.2.1"
-source = { registry = "https://pypi.org/simple" }
+source = { git = "https://github.com/max-moser/invenio-assets?branch=mm%2Fpnpm-v11#185214872c3f1ec5988842de9abc69c4980eaf86" }
 dependencies = [
     { name = "flask-collect-invenio" },
     { name = "flask-webpackext" },
     { name = "invenio-base" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/cf/cf/4b2c7149c958329611bde2ac0f522691388e8b5cc8853056a16074c08c89/invenio_assets-4.2.1.tar.gz", hash = "sha256:5cb8a284558b0a181d4a83f9b2737e2e199f265b6f01dedcd4bacc872c982e14", size = 18688, upload-time = "2026-01-08T09:36:34.627Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/49/00/bc7861ba0204a19c0d9b9793d8babf4ceecce1862ce41d942909e4c008f1/invenio_assets-4.2.1-py2.py3-none-any.whl", hash = "sha256:4884e6789f7a7585314c180ba32d32a39c31a31bcebe8dcef0502a4fd897f361", size = 20951, upload-time = "2026-01-08T09:36:33.269Z" },
 ]
 
 [[package]]
@@ -2668,6 +2664,7 @@ version = "14.0.0"
 source = { virtual = "." }
 dependencies = [
     { name = "invenio-app-rdm", extra = ["opensearch2"] },
+    { name = "invenio-assets" },
     { name = "invenio-cli" },
     { name = "kstu-inveniordm-package" },
     { name = "lxml-html-clean" },
@@ -2694,6 +2691,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "invenio-app-rdm", extras = ["opensearch2"], specifier = "~=14.0.0b9.dev0" },
+    { name = "invenio-assets", git = "https://github.com/max-moser/invenio-assets?branch=mm%2Fpnpm-v11" },
     { name = "invenio-cli", specifier = ">=1.0.0" },
     { name = "kstu-inveniordm-package", editable = "site" },
     { name = "lxml-html-clean", specifier = ">=0.1.1" },
