@@ -17,6 +17,7 @@ development_tools = yes
 site_code = yes
 base_image = debian
 use_reduced_vocabs = yes
+database = postgresql
 _template = https://github.com/samk13/cookiecutter-invenio-rdm
 _output_dir = /home/mmoser/rdm
 _repo_dir = /home/mmoser/.cookiecutters/cookiecutter-invenio-rdm
