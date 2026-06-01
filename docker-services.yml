@@ -17,7 +17,7 @@ services:
       - "INVENIO_SEARCH_HOSTS=['search:9200']"
       - "INVENIO_SECRET_KEY=CHANGE_ME"
       - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://kstu-inveniordm:kstu-inveniordm@db/kstu-inveniordm"
-      - "INVENIO_PROXYFIX_CONFIG={'x_for': 1, 'x_proto': 1}"
+      - "INVENIO_PROXYFIX_CONFIG={'x_for': 2}"
       - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
     logging:
       driver: json-file
