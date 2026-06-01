@@ -1,0 +1,39 @@
+[project]
+name = "kstu-inveniordm"
+description = "Add your description here"
+readme = "README.md"
+version = "14.0.0"
+requires-python = ">= 3.12"
+
+dependencies = [
+  "invenio-app-rdm[opensearch2]~=14.0.0b9.dev0",
+  "python-dotenv>=0.21.0",
+  "uwsgi>=2.0",
+  "uwsgitop>=0.11",
+  "uwsgi-tools>=1.1.1",
+  "lxml-html-clean>=0.1.1",
+  "invenio-cli>=1.0.0",
+  "kstu_inveniordm_package",
+]
+
+[tool.uv.sources]
+"kstu_inveniordm_package" = { workspace = true }
+[tool.uv.workspace]
+members = ["site"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["site/kstu_inveniordm"]
+
+[project.optional-dependencies]
+sentry = [
+    "sentry-sdk>=1.45,<2.0.0",
+]
+tests = [
+    "pytest-invenio>=3.0.0,<4.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "flask-debugtoolbar>=0.16.0",
+    "pytest-invenio>=3.0.0,<4.0.0",
+]
