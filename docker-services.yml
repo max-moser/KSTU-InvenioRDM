@@ -19,6 +19,9 @@ services:
       - "INVENIO_COMMUNITIES_IDENTITIES_CACHE_REDIS_URL=redis://cache:6379/4"
       - "INVENIO_SEARCH_HOSTS=['search:9200']"
       - "INVENIO_PROXYFIX_CONFIG={'x_for': 2}"
+    user: ${INVENIO_CONTAINER_UID:-1000}
+    group_add:
+      - ${INVENIO_CONTAINER_UID:-1000}
     logging:
       driver: json-file
       options:
