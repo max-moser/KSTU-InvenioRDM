@@ -6,19 +6,19 @@ services:
         - ENVIRONMENT=DEV
     image: kstu-inveniordm
     restart: "unless-stopped"
+    env_file: .env
     environment:
-      - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
-      - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
-      - "INVENIO_CACHE_REDIS_URL=redis://cache:6379/0"
+      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://${INVENIO_DB_USER}:${INVENIO_DB_PASSWORD}@db/kstu-inveniordm"
+      - "INVENIO_BROKER_URL=amqp://${INVENIO_MQ_USER}:${INVENIO_MQ_PASSWORD}@mq:5672/"
+      - "INVENIO_CELERY_BROKER_URL=amqp://${INVENIO_MQ_USER}:${INVENIO_MQ_PASSWORD}@mq:5672/"
       - "INVENIO_CACHE_TYPE=redis"
-      - "INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_CACHE_REDIS_URL=redis://cache:6379/0"
+      - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
       - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
+      - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
       - "INVENIO_COMMUNITIES_IDENTITIES_CACHE_REDIS_URL=redis://cache:6379/4"
       - "INVENIO_SEARCH_HOSTS=['search:9200']"
-      - "INVENIO_SECRET_KEY=CHANGE_ME"
-      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://kstu-inveniordm:kstu-inveniordm@db/kstu-inveniordm"
       - "INVENIO_PROXYFIX_CONFIG={'x_for': 2}"
-      - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
     logging:
       driver: json-file
       options:
@@ -53,8 +53,8 @@ services:
     image: postgres:16.11
     restart: "unless-stopped"
     environment:
-      - "POSTGRES_USER=kstu-inveniordm"
-      - "POSTGRES_PASSWORD=kstu-inveniordm"
+      - "POSTGRES_USER=${INVENIO_DB_USER}"
+      - "POSTGRES_PASSWORD=${INVENIO_DB_PASSWORD}"
       - "POSTGRES_DB=kstu-inveniordm"
     ports:
       - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:5432:5432"
@@ -72,7 +72,7 @@ services:
       - "${DOCKER_SERVICES_IP_BIND:-127.0.0.1}:5050:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: "info@kstu-inveniordm.com"
-      PGADMIN_DEFAULT_PASSWORD: "kstu-inveniordm"
+      PGADMIN_DEFAULT_PASSWORD: "${INVENIO_DB_PASSWORD}"
     volumes:
       - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
     logging:
